@@ -4,7 +4,8 @@
 PORTNAME=	skia
 PORTVERSION=	r9785
 CATEGORIES=	devel
-#MASTER_SITES=	http://
+MASTER_SITES=	https://github.com/tigersharke/freebsd-skia/raw/master/ \
+		https://freebsd-skia.googlecode.com/svn-history/r2/trunk/
 
 MAINTAINER=	tigersharke@gmail.com
 COMMENT=	2d graphics library
