@@ -1,0 +1,8 @@
+--- gyp_skia.orig	2013-06-25 04:26:55.539703053 -0500
++++ gyp_skia	2013-06-25 04:27:25.419704003 -0500
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/local/bin/python
+ 
+ # Copyright 2011 The Android Open Source Project
+ #
