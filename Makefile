@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	skia
-PORTVERSION=	r9785
+PORTVERSION=	r9828
 CATEGORIES=	devel
 MASTER_SITES=	https://github.com/tigersharke/freebsd-skia/raw/master/ \
-		https://freebsd-skia.googlecode.com/svn-history/r2/trunk/
+		https://freebsd-skia.googlecode.com/svn-history/r18/trunk/
 
 MAINTAINER=	tigersharke@gmail.com
 COMMENT=	2d graphics library
@@ -27,7 +27,7 @@ BUILD_DEPENDS+=	${LOCALBASE}/bin/gyp:${PORTSDIR}/devel/py-gyp-devel \
 WRKSRC=		${WRKDIR}
 
 USE_GMAKE=	yes
-MAKE_ARGS+=	use_system_libwebp=1 tests
+MAKE_ARGS+=	use_system_libwebp=1 -I${WRKSRC}/include/config/ tests
 MAKE_ENV+=	use_system_libwebp=1 SKIA_OUT="${WRKSRC}/built" BUILDTYPE="Release"
 USE_PYTHON=	yes
 USE_QT4=	opengl corelib
@@ -37,10 +37,7 @@ post-extract:
 	${MKDIR} ${WRKSRC}/built
 
 pre-build:
-	${CP}	${LOCALBASE}/lib/libwebp.a ${WRKSRC}/third_party/externals
-	${CP}	${LOCALBASE}/lib/libwebp.la ${WRKSRC}/src/effects
-	${CP}	${LOCALBASE}/lib/libwebp.so ${WRKSRC}/src/effects
-	${CP}	${LOCALBASE}/lib/libwebp.so.2 ${WRKSRC}/src/effects
+	${CP} -R	${LOCALBASE}/include/webp ${WRKSRC}/src/images/
 	${CP}	${LOCALBASE}/include/gif_lib.h ${WRKSRC}/src/images
 	${CP}	${LOCALBASE}/include/jpeglib.h ${WRKSRC}/src/images
 	${CP}	${LOCALBASE}/include/jconfig.h ${WRKSRC}/src/images
@@ -51,8 +48,7 @@ pre-build:
 	${CP}	${LOCALBASE}/include/pnglibconf.h ${WRKSRC}/src/images
 	${CP}	${LOCALBASE}/include/pngconf.h ${WRKSRC}/src/images
 #
-	${MV}	${WRKSRC}/gyp/angle.gyp ${WRKSRC}/gyp/ignore-angle.gyp
-#	${MV}	${WRKSRC}/gyp/libwebp.gyp ${WRKSRC}/gyp/ignore-libwebp.gyp
+	${RM}	${WRKSRC}/gyp/angle.gyp
 
 post-build:
 	${WRKSRC}/built/Debug/tests
