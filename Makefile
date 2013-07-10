@@ -5,7 +5,7 @@ PORTNAME=	skia
 PORTVERSION=	r9949
 CATEGORIES=	devel
 MASTER_SITES=	https://github.com/tigersharke/freebsd-skia/raw/master/ \
-		https://freebsd-skia.googlecode.com/svn-history/r27/trunk/
+		https://freebsd-skia.googlecode.com/svn-history/r26/trunk/
 
 MAINTAINER=	tigersharke@gmail.com
 COMMENT=	2d graphics library
@@ -38,7 +38,7 @@ USE_GL=		glu glw gl
 
 CXXFLAGS+=      -Iinclude -I${LOCALBASE}/lib -I${LOCALBASE}/include -I${LOCALBASE}/lib/webp \
                 -I${LOCALBASE}/include/fontconfig -I${LOCALBASE}/include/freetype2/freetype/config \
-                -I${LOCALBASE}/include/freetype2 -I${LOCALBASE}/lib/libgif.so -DCLOCK_PROCESS_CPUTIME_ID="15"
+                -I${LOCALBASE}/include/freetype2 -DCLOCK_PROCESS_CPUTIME_ID="15"
 
 post-extract:
 	${MKDIR} ${WRKSRC}/built
