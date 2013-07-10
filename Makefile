@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	skia
-PORTVERSION=	r9917
+PORTVERSION=	r9949
 CATEGORIES=	devel
 MASTER_SITES=	https://github.com/tigersharke/freebsd-skia/raw/master/ \
-		https://freebsd-skia.googlecode.com/svn-history/r21/trunk/
+		https://freebsd-skia.googlecode.com/svn-history/r27/trunk/
 
 MAINTAINER=	tigersharke@gmail.com
 COMMENT=	2d graphics library
@@ -29,33 +29,34 @@ BUILD_DEPENDS+=	${LOCALBASE}/bin/gyp:${PORTSDIR}/devel/py-gyp-devel \
 WRKSRC=		${WRKDIR}
 
 USE_GMAKE=	yes
-MAKE_ARGS+=	use_system_libwebp=1 -I${WRKSRC}/include/config/ tests
-MAKE_ENV+=	use_system_libwebp=1 SKIA_OUT="${WRKSRC}/built" BUILDTYPE="Release"
+#MAKE_ARGS+=	tests
+MAKE_ARGS+=	-I${WRKSRC}/include/config/
+MAKE_ENV+=	SKIA_OUT="${WRKSRC}/built" BUILDTYPE="Release"
 USE_PYTHON=	yes
 USE_QT4=	opengl corelib
 USE_GL=		glu glw gl
 
-CXXFLAGS+=      -Iinclude -I${LOCALBASE}/include -I${LOCALBASE}/lib/webp \
+CXXFLAGS+=      -Iinclude -I${LOCALBASE}/lib -I${LOCALBASE}/include -I${LOCALBASE}/lib/webp \
                 -I${LOCALBASE}/include/fontconfig -I${LOCALBASE}/include/freetype2/freetype/config \
-                -I${LOCALBASE}/include/freetype2
+                -I${LOCALBASE}/include/freetype2 -I${LOCALBASE}/lib/libgif.so -DCLOCK_PROCESS_CPUTIME_ID="15"
 
 post-extract:
 	${MKDIR} ${WRKSRC}/built
 
 pre-build:
-	${CP} -R	${LOCALBASE}/include/webp ${WRKSRC}/src/images/
-#	${CP}	${LOCALBASE}/include/gif_lib.h ${WRKSRC}/src/images
-	${CP}	${LOCALBASE}/include/jconfig.h ${WRKSRC}/src/tools
-	${CP}	${LOCALBASE}/include/jerror.h ${WRKSRC}/src/tools
-	${CP}	${LOCALBASE}/include/jmorecfg.h ${WRKSRC}/src/tools
-	${CP}	${LOCALBASE}/include/jpeglib.h ${WRKSRC}/src/tools
-	${CP}	${LOCALBASE}/include/turbojpeg.h ${WRKSRC}/src/tools
-#	${CP}	${LOCALBASE}/include/jpegint.h ${WRKSRC}/src/images
-	${CP}	${LOCALBASE}/include/jerror.h ${WRKSRC}/src/tools
-#	${CP}	${LOCALBASE}/include/png.h ${WRKSRC}/src/images
-#	${CP}	${LOCALBASE}/include/pnglibconf.h ${WRKSRC}/src/images
-#	${CP}	${LOCALBASE}/include/pngconf.h ${WRKSRC}/src/images
-#
+#	${CP} -R	${LOCALBASE}/include/webp ${WRKSRC}/src/images/
+##	${CP}	${LOCALBASE}/include/gif_lib.h ${WRKSRC}/src/images
+#	${CP}	${LOCALBASE}/include/jconfig.h ${WRKSRC}/src/tools
+#	${CP}	${LOCALBASE}/include/jerror.h ${WRKSRC}/src/tools
+#	${CP}	${LOCALBASE}/include/jmorecfg.h ${WRKSRC}/src/tools
+#	${CP}	${LOCALBASE}/include/jpeglib.h ${WRKSRC}/src/tools
+#	${CP}	${LOCALBASE}/include/turbojpeg.h ${WRKSRC}/src/tools
+##	${CP}	${LOCALBASE}/include/jpegint.h ${WRKSRC}/src/images
+#	${CP}	${LOCALBASE}/include/jerror.h ${WRKSRC}/src/tools
+##	${CP}	${LOCALBASE}/include/png.h ${WRKSRC}/src/images
+##	${CP}	${LOCALBASE}/include/pnglibconf.h ${WRKSRC}/src/images
+##	${CP}	${LOCALBASE}/include/pngconf.h ${WRKSRC}/src/images
+##
 	${RM}	${WRKSRC}/gyp/angle.gyp
 
 post-build:
