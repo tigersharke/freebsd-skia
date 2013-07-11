@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	skia
-PORTVERSION=	r9949
+PORTVERSION=	r10006
 CATEGORIES=	devel
 MASTER_SITES=	https://github.com/tigersharke/freebsd-skia/raw/master/ \
-		https://freebsd-skia.googlecode.com/svn-history/r26/trunk/
+		https://freebsd-skia.googlecode.com/svn-history/r34/trunk/
 
 MAINTAINER=	tigersharke@gmail.com
 COMMENT=	2d graphics library
@@ -13,6 +13,7 @@ COMMENT=	2d graphics library
 LICENSE=	BSD
 
 BUILD_DEPENDS+=	${LOCALBASE}/bin/gyp:${PORTSDIR}/devel/py-gyp-devel \
+		${LOCALBASE}/lib/libX11.so:${PORTSDIR}/x11/libX11 \
 		${LOCALBASE}/lib/libwebp.so:${PORTSDIR}/graphics/webp \
 		${LOCALBASE}/include/gif_lib.h:${PORTSDIR}/graphics/giflib \
 		${LOCALBASE}/include/jpeglib.h:${PORTSDIR}/graphics/libjpeg-turbo \
@@ -38,7 +39,7 @@ USE_GL=		glu glw gl
 
 CXXFLAGS+=      -Iinclude -I${LOCALBASE}/lib -I${LOCALBASE}/include -I${LOCALBASE}/lib/webp \
                 -I${LOCALBASE}/include/fontconfig -I${LOCALBASE}/include/freetype2/freetype/config \
-                -I${LOCALBASE}/include/freetype2 -DCLOCK_PROCESS_CPUTIME_ID="15"
+                -I/lib -I${LOCALBASE}/include/freetype2 -DCLOCK_PROCESS_CPUTIME_ID="15"
 
 post-extract:
 	${MKDIR} ${WRKSRC}/built
@@ -57,7 +58,11 @@ pre-build:
 ##	${CP}	${LOCALBASE}/include/pnglibconf.h ${WRKSRC}/src/images
 ##	${CP}	${LOCALBASE}/include/pngconf.h ${WRKSRC}/src/images
 ##
-	${RM}	${WRKSRC}/gyp/angle.gyp
+#	${RM}	${WRKSRC}/gyp/angle.gyp
+#	${RM} -rf	${WRKSRC}/src/gl/android
+#	${RM} -rf	${WRKSRC}/src/gl/angle
+#	${RM} -rf	${WRKSRC}/src/gl/iOS
+#	${RM} -rf	${WRKSRC}/src/gl/win
 
 post-build:
 	${WRKSRC}/built/Debug/tests
