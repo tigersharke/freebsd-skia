@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	skia
-PORTVERSION=	r10033
+PORTVERSION=	r10056
 CATEGORIES=	devel
 MASTER_SITES=	https://github.com/tigersharke/freebsd-skia/raw/master/ \
-		https://freebsd-skia.googlecode.com/svn-history/r40/trunk/
+		https://freebsd-skia.googlecode.com/svn-history/r41/trunk/
 
 MAINTAINER=	tigersharke@gmail.com
 COMMENT=	2d graphics library
