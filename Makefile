@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	skia
-PORTVERSION=	r10056
+PORTVERSION=	r10065
 CATEGORIES=	devel
 MASTER_SITES=	https://github.com/tigersharke/freebsd-skia/raw/master/ \
-		https://freebsd-skia.googlecode.com/svn-history/r41/trunk/
+		https://freebsd-skia.googlecode.com/svn-history/r44/trunk/
 
 MAINTAINER=	tigersharke@gmail.com
 COMMENT=	2d graphics library
@@ -36,10 +36,13 @@ MAKE_ENV+=	SKIA_OUT="${WRKSRC}/built" BUILDTYPE="Release"
 USE_PYTHON=	yes
 USE_QT4=	opengl corelib
 USE_GL=		glu glw gl
+USE_XORG=	x11
 
-CXXFLAGS+=      -Iinclude -I${LOCALBASE}/lib -I${LOCALBASE}/include -I${LOCALBASE}/lib/webp \
+#CXXFLAGS+=      -Iinclude -I/usr/local/include/X11 -I${LOCALBASE}/lib -I${LOCALBASE}/include -I${LOCALBASE}/lib/webp \
+CPPFLAGS+=      -Iinclude -I/usr/local/include/X11 -I${LOCALBASE}/include \
                 -I${LOCALBASE}/include/fontconfig -I${LOCALBASE}/include/freetype2/freetype/config \
-                -I/lib -I${LOCALBASE}/include/freetype2 -DCLOCK_PROCESS_CPUTIME_ID="15"
+                -I${LOCALBASE}/include/freetype2 -I${LOCALBASE}/include/X11 -DCLOCK_PROCESS_CPUTIME_ID="15"
+LDFLAGS+=	-L/lib -L${LOCALBASE}/lib -L${LOCALBASE}/lib/webp
 
 post-extract:
 	${MKDIR} ${WRKSRC}/built
@@ -59,6 +62,9 @@ pre-build:
 ##	${CP}	${LOCALBASE}/include/pngconf.h ${WRKSRC}/src/images
 ##
 #	${RM}	${WRKSRC}/gyp/angle.gyp
+	${RM}	${WRKSRC}/gyp/jsoncpp.gyp
+	${RM}	${WRKSRC}/gyp/gm.gyp
+	${RM}	${WRKSRC}/gyp/experimental.gyp
 #	${RM} -rf	${WRKSRC}/src/gl/android
 #	${RM} -rf	${WRKSRC}/src/gl/angle
 #	${RM} -rf	${WRKSRC}/src/gl/iOS
