@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	skia
-PORTVERSION=	r10067
+PORTVERSION=	r10086
 CATEGORIES=	devel
-MASTER_SITES=	https://github.com/tigersharke/freebsd-skia/raw/master/ \
-		https://freebsd-skia.googlecode.com/svn-history/r45/trunk/
+MASTER_SITES=	https://freebsd-skia.googlecode.com/svn-history/r46/trunk/ \
+		https://github.com/tigersharke/freebsd-skia/raw/master/
 
 MAINTAINER=	tigersharke@gmail.com
 COMMENT=	2d graphics library
@@ -28,10 +28,11 @@ USE_QT4=	opengl corelib
 USE_GL=		glu glw gl
 USE_XORG=	x11
 
-MAKE_ARGS+=	-I${WRKSRC}/include/config/ -I${LOCALBASE}/include
 MAKE_ENV+=	SKIA_OUT="${WRKSRC}/built" BUILDTYPE="Release"
 
-CXXFLAGS+=      -I${LOCALBASE}/include -DCLOCK_PROCESS_CPUTIME_ID="15" -I${LOCALBASE}/include/freetype2 
+CXXFLAGS+=      -I${LOCALBASE}/include -DCLOCK_PROCESS_CPUTIME_ID="15" -I${LOCALBASE}/include/freetype2 \
+		-I${WRKSRC}/include/config/ 
+CFLAGS+=	-I${LOCALBASE}/include -I${LOCALBASE}/include/X11
 LDFLAGS+=	-L${LOCALBASE}/lib
 
 ## Error was:
@@ -42,10 +43,14 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 ## Answer is:
 # -I${LOCALBASE}/include/freetype2 
 
+# Unresolved error is:
 # In file included from ../src/views/unix/keysym2ucs.c:37:
 # ../include/views/unix/keysym2ucs.h:13:10: fatal error: 'X11/X.h' file not found
 #          #include <X11/X.h>
+# Locate shows:
 # /usr/local/include/X11/X.h
+# So I assume this ought to work, but doesn't:
+# -I${LOCALBASE}/include
 
 post-extract:
 	${MKDIR} ${WRKSRC}/built
