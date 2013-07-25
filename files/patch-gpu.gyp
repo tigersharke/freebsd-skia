@@ -1,5 +1,5 @@
---- gyp/gpu.gyp.orig	2013-07-24 23:28:04.565741036 -0500
-+++ gyp/gpu.gyp	2013-07-24 23:35:41.272195272 -0500
+--- gyp/gpu.gyp.orig	2013-07-24 21:29:26.000000000 -0500
++++ gyp/gpu.gyp	2013-07-25 02:17:45.255696564 -0500
 @@ -9,7 +9,7 @@
          'sources/': [ ['exclude', '_mac.(h|cpp|m|mm)$'],
          ],
@@ -9,28 +9,31 @@
          'sources/': [ ['exclude', '_unix.(h|cpp)$'],
          ],
        }],
-@@ -35,7 +35,7 @@
-           'GR_MAC_BUILD=1',
-         ],
-       }],
--      [ 'skia_os == "linux" or skia_os == "chromeos"', {
-+      [ 'skia_os == "linux" or skia_os == "chromeos" and skia_os == "freebsd"', {
-         'defines': [
+@@ -40,6 +40,11 @@
            'GR_LINUX_BUILD=1',
          ],
-@@ -98,6 +98,11 @@
+       }],
++      [ 'skia_os == "freebsd"', {
++        'defines': [
++          'GR_FREEBSD_BUILD=1',
++        ],
++      }],
+       [ 'skia_os == "ios"', {
+         'defines': [
+           'GR_IOS_BUILD=1',
+@@ -98,6 +103,11 @@
              'GR_LINUX_BUILD=1',
            ],
          }],
 +        [ 'skia_os == "freebsd"', {
 +          'defines': [
-+            'GR_LINUX_BUILD=1',
++            'GR_FREEBSD_BUILD=1',
 +          ],
 +        }],
          [ 'skia_os == "ios"', {
            'defines': [
              'GR_IOS_BUILD=1',
-@@ -122,7 +127,7 @@
+@@ -122,7 +132,7 @@
        'type': 'static_library',
        'standalone_static_library': 1,
        'dependencies': [
@@ -39,7 +42,7 @@
          'core.gyp:*',
          'utils.gyp:*',
        ],
-@@ -135,12 +140,12 @@
+@@ -135,12 +145,12 @@
          '../src/gpu',
        ],
        'export_dependent_settings': [
@@ -54,16 +57,16 @@
          '<@(skgpu_mesa_gl_sources)',
          '<@(skgpu_debug_gl_sources)',
          '<@(skgpu_null_gl_sources)',
-@@ -176,7 +181,7 @@
+@@ -176,7 +186,7 @@
              'GR_ANDROID_PATH_RENDERING=1',
            ],
          }],
 -        [ 'skia_os == "linux" or skia_os == "chromeos"', {
-+        [ 'skia_os == "linux" or skia_os == "chromeos" or skia_os == "freebsd"', {
++        [ 'skia_os == "linux" or skia_os == "freebsd" or skia_os == "chromeos"', {
            'sources!': [
              '../src/gpu/gl/GrGLDefaultInterface_none.cpp',
              '../src/gpu/gl/GrGLCreateNativeInterface_none.cpp',
-@@ -203,6 +208,13 @@
+@@ -203,6 +213,13 @@
              ],
            },
          }],
@@ -77,7 +80,7 @@
          [ 'skia_os == "mac"', {
            'link_settings': {
              'libraries': [
-@@ -236,17 +248,17 @@
+@@ -236,17 +253,17 @@
              '../src/gpu/gl/GrGLCreateNativeInterface_none.cpp',
            ],
          }],
