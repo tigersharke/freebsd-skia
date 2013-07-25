@@ -1,5 +1,5 @@
 --- include/gpu/GrConfig.h.orig	2013-07-11 04:16:53.000000000 -0500
-+++ include/gpu/GrConfig.h	2013-07-25 02:41:13.645694389 -0500
++++ include/gpu/GrConfig.h	2013-07-25 02:52:56.625698903 -0500
 @@ -41,6 +41,9 @@
  #if !defined(GR_LINUX_BUILD)
      #define GR_LINUX_BUILD      0
@@ -19,18 +19,7 @@
      #if defined(_WIN32)
          #undef GR_WIN32_BUILD
          #define GR_WIN32_BUILD      1
-@@ -82,6 +85,10 @@
-         #undef GR_LINUX_BUILD
-         #define GR_LINUX_BUILD      1
- //      #error "LINUX"
-+    #else
-+        #undef GR_FREEBSD_BUILD
-+        #define GR_FREEBSD_BUILD    1
-+//      #error "FREEBSD"
-     #endif
- #endif
- 
-@@ -356,7 +363,7 @@
+@@ -356,7 +359,7 @@
  /**
   *  Only one build target macro should be 1 and the rest should be 0.
   */
@@ -39,7 +28,7 @@
  #if 0 == GR_BUILD_SUM
      #error "Missing a GR_BUILD define"
  #elif 1 != GR_BUILD_SUM
-@@ -379,6 +386,9 @@
+@@ -379,6 +382,9 @@
  #if GR_LINUX_BUILD
  //    #pragma message GR_WARN("GR_LINUX_BUILD")
  #endif
