@@ -1,5 +1,5 @@
 --- include/gpu/GrConfig.h.orig	2013-07-11 04:16:53.000000000 -0500
-+++ include/gpu/GrConfig.h	2013-07-25 02:34:53.565696409 -0500
++++ include/gpu/GrConfig.h	2013-07-25 02:41:13.645694389 -0500
 @@ -41,6 +41,9 @@
  #if !defined(GR_LINUX_BUILD)
      #define GR_LINUX_BUILD      0
@@ -15,7 +15,7 @@
   *  If no build target has been defined, attempt to infer.
   */
 -#if !GR_ANDROID_BUILD && !GR_IOS_BUILD && !GR_LINUX_BUILD && !GR_MAC_BUILD && !GR_WIN32_BUILD && !GR_QNX_BUILD
-+#if !GR_ANDROID_BUILD && !GR_IOS_BUILD && !GR_LINUX_BUILD !GR_FREEBSD_BUILD && !GR_MAC_BUILD && !GR_WIN32_BUILD && !GR_QNX_BUILD
++#if !GR_ANDROID_BUILD && !GR_IOS_BUILD && !GR_LINUX_BUILD && !GR_FREEBSD_BUILD && !GR_MAC_BUILD && !GR_WIN32_BUILD && !GR_QNX_BUILD
      #if defined(_WIN32)
          #undef GR_WIN32_BUILD
          #define GR_WIN32_BUILD      1
