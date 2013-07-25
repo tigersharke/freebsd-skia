@@ -1,11 +1,11 @@
---- include/gpu/GrConfig.h.orig	2013-07-25 01:50:52.315697201 -0500
-+++ include/gpu/GrConfig.h	2013-07-25 01:57:57.295694153 -0500
+--- include/gpu/GrConfig.h.orig	2013-07-11 04:16:53.000000000 -0500
++++ include/gpu/GrConfig.h	2013-07-25 02:34:53.565696409 -0500
 @@ -41,6 +41,9 @@
  #if !defined(GR_LINUX_BUILD)
      #define GR_LINUX_BUILD      0
  #endif
 +#if !defined(GR_FREEBSD_BUILD)
-+    #define GR_FREEBSD_BUILD)   0
++    #define GR_FREEBSD_BUILD    0
 +#endif
  #if !defined(GR_MAC_BUILD)
      #define GR_MAC_BUILD        0
