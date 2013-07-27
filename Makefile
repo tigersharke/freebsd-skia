@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	skia
-PORTVERSION=	r10338
+PORTVERSION=	r10397
 CATEGORIES=	devel
-MASTER_SITES=	https://freebsd-skia.googlecode.com/svn-history/r50/trunk/ \
+MASTER_SITES=	https://freebsd-skia.googlecode.com/svn-history/r63/trunk/ \
 		https://github.com/tigersharke/freebsd-skia/raw/master/
 
 MAINTAINER=	tigersharke@gmail.com
@@ -24,9 +24,10 @@ WRKSRC=		${WRKDIR}
 
 USE_GMAKE=	yes
 USE_PYTHON=	yes
-USE_QT4=	opengl corelib
+USE_QT4=	opengl corelib moc
 USE_GL=		glu glw gl
 USE_XORG=	x11
+WITH_GECKO=	libxul
 
 MAKE_ENV+=	SKIA_OUT="${WRKSRC}/built" BUILDTYPE="Release"
 
@@ -57,8 +58,8 @@ post-extract:
 
 pre-build:
 #	${RM}	${WRKSRC}/gyp/angle.gyp
-	${RM}	${WRKSRC}/gyp/jsoncpp.gyp
-	${RM}	${WRKSRC}/gyp/gm.gyp
+#	${RM}	${WRKSRC}/gyp/jsoncpp.gyp
+#	${RM}	${WRKSRC}/gyp/gm.gyp
 	${RM}	${WRKSRC}/gyp/experimental.gyp
 #	${RM} -rf	${WRKSRC}/src/gl/android
 #	${RM} -rf	${WRKSRC}/src/gl/angle
