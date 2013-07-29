@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	skia
-PORTVERSION=	r10397
+PORTVERSION=	r10420
 CATEGORIES=	devel
-MASTER_SITES=	https://freebsd-skia.googlecode.com/svn-history/r63/trunk/ \
+MASTER_SITES=	https://freebsd-skia.googlecode.com/svn-history/r65/trunk/ \
 		https://github.com/tigersharke/freebsd-skia/raw/master/
 
 MAINTAINER=	tigersharke@gmail.com
@@ -32,7 +32,7 @@ WITH_GECKO=	libxul
 MAKE_ENV+=	SKIA_OUT="${WRKSRC}/built" BUILDTYPE="Release"
 
 CXXFLAGS+=      -I${LOCALBASE}/include -DCLOCK_PROCESS_CPUTIME_ID="15" -I${LOCALBASE}/include/freetype2 \
-		-I${WRKSRC}/include/config/ 
+		-I${WRKSRC}/include/config/ -I${LOCALBASE}/include/libxul
 CFLAGS+=	-I${LOCALBASE}/include -I${LOCALBASE}/include/X11
 LDFLAGS+=	-L${LOCALBASE}/lib
 
@@ -58,7 +58,7 @@ post-extract:
 
 pre-build:
 #	${RM}	${WRKSRC}/gyp/angle.gyp
-#	${RM}	${WRKSRC}/gyp/jsoncpp.gyp
+	${RM}	${WRKSRC}/gyp/jsoncpp.gyp
 #	${RM}	${WRKSRC}/gyp/gm.gyp
 	${RM}	${WRKSRC}/gyp/experimental.gyp
 #	${RM} -rf	${WRKSRC}/src/gl/android
