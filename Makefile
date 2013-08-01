@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	skia
-PORTVERSION=	r10449
+PORTVERSION=	r10476
 CATEGORIES=	devel
-MASTER_SITES=	https://freebsd-skia.googlecode.com/svn-history/r71/trunk/ \
+MASTER_SITES=	https://freebsd-skia.googlecode.com/svn-history/r73/trunk/ \
 		https://github.com/tigersharke/freebsd-skia/raw/master/
 
 MAINTAINER=	tigersharke@gmail.com
